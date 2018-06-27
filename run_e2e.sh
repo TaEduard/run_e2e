@@ -21,6 +21,24 @@ DRY_RUN=$1
 FOCUS=$2
 SKIP=$3
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+GO_VERSION="1.10"
+
+function set_golang_env() {
+if [ -d "/usr/lib/go-$GO_VERSION" ]; then
+        export GOROOT=/usr/lib/go-$GO_VERSION
+        export GOBIN=$GOROOT/bin
+        export PATH=$GOROOT/bin:$DIR/tmp:$PATH
+fi
+if [ ! -d "$DIR/tmp" ]; then
+        mkdir $DIR/tmp
+fi
+}
+
+function get_kubetest() {
+wget https://k8swin.blob.core.windows.net/k8s-windows/testing/kubetest/kubetest_2018-06-26-09-15-47/kubetest $DIR/tmp/
+}
+
 function get_tests_regex() {
   local tests_file=$1
 
@@ -45,6 +63,8 @@ function get_tests_regex() {
 
   echo $TEXT
 }
+
+set_golang_env
 
 export GINKGO_NO_COLOR=y
 
