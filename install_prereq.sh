@@ -18,7 +18,6 @@ function program_is_installed() {
 function install_go() {
         GO_VERSION="1.10"
         if [ ! -d "/usr/lib/go-$GO_VERSION" ]; then
-                Printlog "Installing golang"
 		echo "Installing golang"
 		sudo add-apt-repository ppa:gophers/archive
 		sudo apt-get update
@@ -35,7 +34,7 @@ function clone_k8s() {
 		echo "Cloning Kubernetes repo $KUBE_REPO"
 		git clone $KUBE_REPO
 		cd $BASEDIR/kubernetes
-		git checkout origin/$WIN_E2E_KUBE_BRANCH
+		git checkout origin/$WIN_E2E_KUBE_BRANCH -b $WIN_E2E_KUBE_BRANCH
 #	else
 #                Printlog "Pulling kubernetes"
 #                cd kubernetes
