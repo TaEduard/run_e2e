@@ -21,7 +21,7 @@ function install_go() {
 		echo "Installing golang"
 		sudo add-apt-repository ppa:gophers/archive
 		sudo apt-get update
-		sudo apt-get install golang-$GO_VERSION-go
+		sudo apt-get install golang-$GO_VERSION-go -y
 
 		export GOROOT=/usr/lib/go-$GO_VERSION
                 export GOBIN=$GOROOT/bin
@@ -55,7 +55,7 @@ function install_docker(){
 function build_kubernetes() {
 	KUBE_ROOT=$(dirname "${BASH_SOURCE}")/kubernetes
 	echo "Building Kubernetes"
-	$KUBE_ROOT/build/run.sh make all
+	sudo $KUBE_ROOT/build/run.sh make all
 }
 
 BASEDIR=$(dirname "${BASH_SOURCE}")
